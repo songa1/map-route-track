@@ -30,8 +30,8 @@ function Map() {
   });
 
   const [directions, setDirections] = useState(null);
-  const [startLocation, setStartLocation] = useState("");
-  const [destination, setDestination] = useState("");
+  const [startLocation, setStartLocation] = useState<any>("");
+  const [destination, setDestination] = useState<any>("");
 
   useEffect(() => {
     if (destination) {
@@ -63,7 +63,7 @@ function Map() {
           destination: destination,
           travelMode: google.maps.TravelMode["WALKING"],
         },
-        (result, status) => {
+        (result: any, status: any) => {
           if (status === "OK") {
             setDirections(result);
           } else {
