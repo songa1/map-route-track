@@ -5,9 +5,7 @@ import {
   useJsApiLoader,
   GoogleMap,
   InfoWindow,
-  LoadScript,
   Marker,
-  DirectionsService,
   DirectionsRenderer,
   Autocomplete,
   Libraries,
@@ -55,6 +53,14 @@ function Map() {
   const [directions, setDirections] = useState(null);
   const [startLocation, setStartLocation] = useState<any>("");
   const [destination, setDestination] = useState<any>("");
+  const [userInfo, setUserInfo] = useState<{ name: string } | null>(null);
+
+  const handleMarkerClick = () => {
+    const dummyUserInfo = {
+      name: "User's location!",
+    };
+    setUserInfo(dummyUserInfo);
+  };
 
   useEffect(() => {
     if (destination) {
@@ -168,6 +174,22 @@ function Map() {
             mapContainerClassName="rounded-2xl"
           >
             {directions && <DirectionsRenderer directions={directions} />}
+            {userLocation && (
+              <Marker position={userLocation} onClick={handleMarkerClick} />
+            )}
+            {userInfo && (
+              <InfoWindow
+                position={{
+                  lat: userLocation && userLocation.lat + 0.01,
+                  lng: userLocation && userLocation.lng,
+                }}
+                onCloseClick={() => setUserInfo(null)}
+              >
+                <div>
+                  <h3>{userInfo.name}</h3>
+                </div>
+              </InfoWindow>
+            )}
           </GoogleMap>
         </div>
       </div>
