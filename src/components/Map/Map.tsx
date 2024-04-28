@@ -60,7 +60,7 @@ function Map() {
     if (destination) {
       <ToastDefault />;
     }
-  }, []);
+  }, [destination]);
 
   const handleStartLocationSelect = (addressObject: AddressObject) => {
     if (addressObject) {
