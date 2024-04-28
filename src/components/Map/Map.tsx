@@ -4,14 +4,12 @@ import { AddressObject, Location } from "@/types/map";
 import {
   useJsApiLoader,
   GoogleMap,
-  InfoWindow,
   Marker,
   DirectionsRenderer,
   Autocomplete,
   Libraries,
 } from "@react-google-maps/api";
-import { useEffect, useRef, useState } from "react";
-import ToastDefault from "../Tools/Toast";
+import { useEffect, useState } from "react";
 
 const center = { lat: -1.9403, lng: 29.8739 };
 
@@ -27,20 +25,17 @@ function Map() {
     libraries: libraries,
   });
 
-  const directionsRendererRef = useRef(null);
   const [userLocation, setUserLocation] = useState<Location>();
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(
-        // Success callback
         (position) => {
           setUserLocation({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           });
         },
-        // Error callback
         (error) => {
           console.error("Error getting user's location:", error);
         }
@@ -53,13 +48,6 @@ function Map() {
   const [directions, setDirections] = useState(null);
   const [startLocation, setStartLocation] = useState<any>("");
   const [destination, setDestination] = useState<any>("");
-  const [userInfo, setUserInfo] = useState<{ name: string } | null>(null);
-
-  useEffect(() => {
-    if (destination) {
-      <ToastDefault />;
-    }
-  }, [destination]);
 
   const handleStartLocationSelect = (addressObject: AddressObject) => {
     if (addressObject) {
