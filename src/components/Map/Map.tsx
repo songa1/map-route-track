@@ -55,13 +55,6 @@ function Map() {
   const [destination, setDestination] = useState<any>("");
   const [userInfo, setUserInfo] = useState<{ name: string } | null>(null);
 
-  const handleMarkerClick = () => {
-    const dummyUserInfo = {
-      name: "User's location!",
-    };
-    setUserInfo(dummyUserInfo);
-  };
-
   useEffect(() => {
     if (destination) {
       <ToastDefault />;
@@ -175,14 +168,7 @@ function Map() {
           >
             {directions && <DirectionsRenderer directions={directions} />}
             {userLocation && (
-              <Marker position={userLocation} onClick={handleMarkerClick} />
-            )}
-            {userInfo && (
-              <InfoWindow onCloseClick={() => setUserInfo(null)}>
-                <div>
-                  <h3>{userInfo.name}</h3>
-                </div>
-              </InfoWindow>
+              <Marker position={userLocation} />
             )}
           </GoogleMap>
         </div>
