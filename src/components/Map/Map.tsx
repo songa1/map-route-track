@@ -178,13 +178,7 @@ function Map() {
               <Marker position={userLocation} onClick={handleMarkerClick} />
             )}
             {userInfo && (
-              <InfoWindow
-                position={{
-                  lat: userLocation && userLocation.lat + 0.01,
-                  lng: userLocation && userLocation.lng,
-                }}
-                onCloseClick={() => setUserInfo(null)}
-              >
+              <InfoWindow onCloseClick={() => setUserInfo(null)}>
                 <div>
                   <h3>{userInfo.name}</h3>
                 </div>
