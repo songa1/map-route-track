@@ -4,16 +4,7 @@ export interface AddressObject {
   business_status: string;
   formatted_address: string;
   formatted_phone_number: string;
-  geometry: {
-    location: {
-      lat: number;
-      lng: number;
-    };
-    viewport: {
-      northeast: { lat: number; lng: number };
-      southwest: { lat: number; lng: number };
-    };
-  };
+  geometry: Geometry;
   html_attributions: string[];
   icon: string;
   icon_background_color: string;
@@ -36,6 +27,19 @@ export interface AddressObject {
   utc_offset_minutes?: number;
   vicinity: string;
   website?: string;
+}
+
+export interface Geometry {
+  location: Location;
+  viewport: {
+    northeast: { lat: number; lng: number };
+    southwest: { lat: number; lng: number };
+  };
+}
+
+export interface Location {
+  lat: number;
+  lng: number;
 }
 
 export interface AddressComponent {

@@ -1,6 +1,6 @@
 "use client";
 
-import { AddressObject } from "@/types/map";
+import { AddressObject, Location } from "@/types/map";
 import {
   useJsApiLoader,
   GoogleMap,
@@ -12,7 +12,7 @@ import {
   Autocomplete,
   Libraries,
 } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ToastDefault from "../Tools/Toast";
 
 const center = { lat: -1.9403, lng: 29.8739 };
@@ -28,6 +28,29 @@ function Map() {
     googleMapsApiKey: mapApiKey,
     libraries: libraries,
   });
+
+  const directionsRendererRef = useRef(null);
+  const [userLocation, setUserLocation] = useState<Location>();
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(
+        // Success callback
+        (position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        // Error callback
+        (error) => {
+          console.error("Error getting user's location:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
 
   const [directions, setDirections] = useState(null);
   const [startLocation, setStartLocation] = useState<any>("");
